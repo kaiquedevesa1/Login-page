@@ -6,6 +6,6 @@ import { DefaultLoginLayoutComponent } from '../../components/default-login-layo
   selector: 'app-login',
   imports: [DefaultLoginLayoutComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {}
