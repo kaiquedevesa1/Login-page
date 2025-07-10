@@ -9,6 +9,7 @@ import {
 import { PrimaryInputComponent } from '../../components/primary-input/primary-input.component';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: true,
@@ -25,7 +26,11 @@ import { LoginService } from '../../services/login.service';
 export class LoginComponent {
   loginForm!: FormGroup;
 
-  constructor(private router: Router, private loginService: LoginService) {
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private toastr: ToastrService
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -39,8 +44,10 @@ export class LoginComponent {
     this.loginService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe({
-        next: () => console.log('sucesso'),
-        error: () => console.log('error'),
+        next: () => this.toastr.success('Login feito com sucesso!'),
+
+        error: () =>
+          this.toastr.error('Error inesperado tente novamente mais tarde'),
       });
   }
 
